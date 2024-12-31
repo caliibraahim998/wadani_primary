@@ -68,4 +68,48 @@ $(document).ready(function () {
         });
     }
 
+    //  list Of listOfProfessors
+    listProfessors();
+    function listProfessors(){
+       $.ajax({
+        type: "POST",
+        url: "Dashboard_api.php",
+        data:{"action":"listOfProfessors"},
+        dataType: "html",
+        success: function (response) {
+            $("#ListOfProfessors").html(response);
+        }
+       });
+    }
+
+    userProfileBody()
+    function userProfileBody(){
+        $.ajax({
+            type: "POST",
+            url: "Dashboard_api.php",
+            data: {"action": "userProfile"},
+            dataType: "html",
+            success: function (response) {
+                // console.log(response.message);
+                $("#userProfileBody").html(response);
+                
+            }
+        });
+    }
+    
+    // Profile Read Start Here
+    ProfileBodyuser();
+    function ProfileBodyuser(){
+        $.ajax({
+            type: "POST",
+            url: "Dashboard_api.php",
+            data:{"action":"profileRead"},
+            dataType: "html",
+            success: function (response) {
+                $("#ProfileBody").html(response);
+            }
+        });
+    }
+    // Profile Read End Here
 });
+

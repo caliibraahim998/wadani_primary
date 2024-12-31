@@ -136,11 +136,11 @@
                                 </div>
                             </li>
                             <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/pic1.jpg" width="20" alt="">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown" id="userProfileBody" >
+                                    
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
+                                    <a href="profile.php" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -433,37 +433,9 @@
                                     <div class="cover-photo"></div>
                                     
                                 </div>
-                                <div class="profile-info">
-									
-                                    <div class="row">
-										<div class="col-sm-3">
-											<div class="profile-photo">
-												<img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
-											</div>
-										</div>
-                                        <div class="col-sm-9 col-12">
-                                            <div class="row">
-                                                <div class="col-xl-4 col-sm-6 border-right-1">
-                                                    <div class="profile-name">
-                                                        <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                                        <p>UX / UI Designer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4 col-sm-6 border-right-1">
-                                                    <div class="profile-email">
-                                                        <h4 class="text-muted mb-0">hello@email.com</h4>
-                                                        <p>Email</p>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="col-xl-4 col-sm-4 prf-col">
-                                                    <div class="profile-call">
-                                                        <h4 class="text-muted">(+1) 321-837-1030</h4>
-                                                        <p>Phone No.</p>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="profile-info" id="ProfileBody">
+									<!-- From Js File -->
+                                   
                                 </div>
                             </div>
                         </div>
