@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../../vendor/autoload.php';
+require '../scool_management/vendor/autoload.php';
 
 
 function SEND_EMAIL($username, $email, $user_token)
@@ -291,7 +291,9 @@ function register($conn)
         {
             $user_token =md5(rand());
             $hashPassword =password_hash ($password, PASSWORD_DEFAULT);
-            $register=mysqli_query($conn, "INSERT INTO manager (username,email,user_password,user_token, user_image)VALUES('$username','$email','$hashPassword','$user_token','../admin/images/user.png')");
+            $user_role = isset($_POST['user_role']) && $_POST['user_role'] == 'user';
+
+            $register=mysqli_query($conn, "INSERT INTO manager (username,email,user_password,user_token, user_image,user_role)VALUES('$username','$email','$hashPassword','$user_token','../admin/images/user.png'),'$user_role'");
             if($register)
             {
                 SEND_EMAIL($username,$email,$user_token);
