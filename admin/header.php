@@ -1,5 +1,4 @@
 
-    
     <!--**********************************
             Nav header start
         ***********************************-->
@@ -104,7 +103,7 @@
                                 </div>
                             </li>
                             <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown" id="userProfileBody">
+                                <a class="nav-link" href="#" role="button" style="display: flex; justify-content:space-between;" data-toggle="dropdown" id="userProfileBody">
                                     <!-- From js File -->
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">

@@ -82,34 +82,40 @@ $(document).ready(function () {
        });
     }
 
-    userProfileBody()
-    function userProfileBody(){
+// user profile Start Here
+startUserProfile();
+function startUserProfile(){
+    $.ajax({
+        type: "POST",
+        url: "Dashboard_api.php",
+        data:{"action":"userProfile"},
+        dataType: "html",
+        success: function (response) {
+
+            $("#userProfileBody").html(response);
+            
+        }
+    });
+}
+// user profile end Here
+
+    // Profile_read Function
+    Profile_read();
+
+    function Profile_read(){
         $.ajax({
             type: "POST",
             url: "Dashboard_api.php",
-            data: {"action": "userProfile"},
-            dataType: "html",
+            data: {"action": "profileRead",},
+            dataType: "json",
             success: function (response) {
-                // console.log(response.message);
-                $("#userProfileBody").html(response);
+                $(".userName").html(response.use_name);
+                $(".image_parent").html(`<img src='${response.userImage}' alt='user-image' class='img-fluid rounded-circle'>`);
+                $(".userEmail").html(response.use_email);
+                $(".userRole").html(response.useRole);
                 
             }
         });
     }
-    
-    // Profile Read Start Here
-    ProfileBodyuser();
-    function ProfileBodyuser(){
-        $.ajax({
-            type: "POST",
-            url: "Dashboard_api.php",
-            data:{"action":"profileRead"},
-            dataType: "html",
-            success: function (response) {
-                $("#ProfileBody").html(response);
-            }
-        });
-    }
-    // Profile Read End Here
 });
 

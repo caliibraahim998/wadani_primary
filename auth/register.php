@@ -1,4 +1,15 @@
+<?php  
+session_start();
+if (isset($_SESSION["activeUser"]))
+{
+    header("Location:../admin");
 
+}
+else
+{
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
@@ -45,7 +56,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Already have an account? <a class="text-primary" href="login.php">Sign in</a></p>
+                                        <p>Already have an account? <a class="text-primary" href="index.php">Sign in</a></p>
                                     </div>
                                 </div>
                             </div>

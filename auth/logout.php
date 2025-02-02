@@ -9,13 +9,13 @@ if (isset($_SESSION["activeUser"]) && isset($_SESSION["user_id"]))
     unset($_SESSION["activeUser"]);
     setcookie("email","",time()-60*60*24*7,"/");
     setcookie("user_password","",time()-60*60*24*7,"/");
-    header("location:logoutview.php");
+    header("location:login.php");
  }
  else
  {
     unset($_SESSION["user_id"]);
     unset($_SESSION["activeUser"]);
-    header("location:logoutview.php");
+    header("location:login.php");
  }
 
 }

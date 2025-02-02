@@ -1,4 +1,47 @@
+<?php  
+// Callng Connection File
+include("../admin/config/conn.php");
+session_start();
+if (isset($_SESSION["activeUser"]))
+{
+   header("Location:../admin");
+}
+else
+{
 
+}
+// Auto Login Starting Here
+if(isset($_COOKIE['email']) &&isset( $_COOKIE['password']))
+{
+  $email = $_COOKIE['email'];
+    $password=$_COOKIE['password'];
+    // Automatic Login from
+    $read=mysqli_query($conn, "SELECT * FROM manager WHERE email='$email'");
+    if($read && mysqli_num_rows($read)>0)
+{
+    echo "success";
+    $row=mysqli_fetch_assoc($read);
+    $oldPassword=$row['user_password'];
+ 
+   
+    $_SESSION['id']=$row['id'];
+    $_SESSION['activeUser']=true;
+    setcookie("email","$email",time()+60*60*24*7,"/");
+    setcookie("password","$oldPassword",time()+60*60*24*7,"/");
+  
+  
+}
+else{
+  
+
+   unset( $_SESSION['user_id']);
+   unset( $_SESSION['activeUser']);
+   setcookie("email","$email",time()-60*60*24*7,"/");
+   setcookie("password","$oldPassword",time()-60*60*24*7,"/");
+}
+
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en" class="h-100">

@@ -6,6 +6,6 @@ if (isset($_SESSION["activeUser"]))
 }
 else
 {
-    header("location:auth/login.php");
+    header("location:auth");
 }
 ?>

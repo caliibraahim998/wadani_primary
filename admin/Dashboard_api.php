@@ -1,6 +1,5 @@
 <?php 
 header('Content-Type: application/json');
-
 include("config/conn.php");
 //   Making Action Start Here
 
@@ -101,13 +100,13 @@ else{
 
 // User Profile Start Here
 function userProfile($conn){
-    $userRead=mysqli_query($conn, "SELECT * FROM manager");
+    $userRead=mysqli_query($conn, "SELECT * FROM manager WHERE user_token='verified'");
     if($userRead && mysqli_num_rows($userRead)>0){
       $row=mysqli_fetch_assoc($userRead);
       ?>
       
-       <img style="margin-left: 20px;" src="<?php echo $row['user_image']; ?>" width="20" alt="">
-       <h6 style="margin-right:20px; margin-top:5px; color:#fff;"><?php echo $row['username']; ?></h6>
+       <img  src="<?php echo $row['user_image']; ?>" width="20" alt="">
+       <h6 style="margin-left:10px; margin-top:5px; color:#fff;"><?php echo $row['username']; ?></h6>
      
       <?php
        
@@ -122,30 +121,18 @@ function userProfile($conn){
 function profileRead($conn){
     $profileRead=mysqli_query($conn, "SELECT * FROM manager");
     if($profileRead && mysqli_num_rows($profileRead)>0){
-      $row=mysqli_fetch_assoc($profileRead);
-      ?>
-             <div class="row">
-				 <div class="col-sm-3">
-				<div class="profile-photo">
-				<img src="<?php echo $row['user_image'];  ?>" class="img-fluid rounded-circle" alt="">
-				</div>
-				 </div>
+      $rowProfileread=mysqli_fetch_assoc($profileRead);
+    echo json_encode(['status' =>'success',
+    'use_name' => $rowProfileread['username'],
+    'use_email' => $rowProfileread['email'],
+    'useRole' => $rowProfileread['user_role'],
+    'use_token' => $rowProfileread['user_token'],
+    'userImage' => $rowProfileread['user_image'],
+    'Registration Date' => $rowProfileread['create_date'],
 
 
-             <div class="col-xl-4 col-sm-6 border-right-1">
-                 <div class="profile-name">
-                 <h4 class="text-primary mb-0"><?php  echo $row['username']; ?></h4>
-                 <!-- <p>UX / UI Designer</p> -->
-                 </div>
-                 </div>
-                 <div class="col-xl-4 col-sm-6 border-right-1">
-                 <div class="profile-email">
-                 <h4 class="text-muted mb-0"><?php  echo $row['email']; ?></h4>
-                 <p>Email</p>
-                 </div>
-             </div>
-             </div>
-      <?php
+   
+]);
     }
     else{
         echo json_encode(['status' => 'error', 'message' =>'not found in User Profile']);
