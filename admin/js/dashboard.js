@@ -117,5 +117,12 @@ function startUserProfile(){
             }
         });
     }
+
+
+    // Profile ReadUpdate logic
+    $(document).on('submit', '#ProfileUpdateBtn',function(e){
+        e.preventDefault();
+        console.log('click');
+    })
 });
 

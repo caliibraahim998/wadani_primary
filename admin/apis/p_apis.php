@@ -97,8 +97,8 @@ function read($conn)
 			 <th><?php echo $row['last_name']; ?></th>
 			 <th><?php echo $row['email']; ?></th>
 			 <th><button class="btn btn-primary"><i class="fas fa-eye"></i></button></th>
-			 <th><button class="btn btn-success"><i class="fas fa-edit"></i></button></th>
-			 <th><button class="btn btn-danger"><i class="fas fa-trash"></i></button></th>
+			 <th><button id="RUBTN" pId="<?php  echo $row['id'] ?>"  class="btn btn-success"><i class="fas fa-edit"></i></button></th>
+			 <th><button id="PDeleteBTN" pId="<?php  echo $row['id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></button></th>
 			 </tr>
             <?php
            }
@@ -112,5 +112,35 @@ function read($conn)
     }
 }
 //  Read teachers   end Here
+//  Delete teachers   Start Here
+function DeleteF($conn){
+    if(isset($_POST['pId'])){
+        $pId=$_POST['pId'];
+        $delete=mysqli_query($conn, "DELETE FROM  professors  WHERE id ='$pId'");
+        if($delete){
+              echo json_encode(['status'=>'success','message'=>'SuccessFully Deleted!']);
+        }else{
+                        echo json_encode(['status'=>'error','message'=>'No Professor Deleted']);
+
+        }
+    }
+}
+//  Delete teachers   end Here
+//  Read Update  teachers   Start Here
+function Read_update($conn){
+    if(isset($_POST['pId'])){
+         $pId=$_POST['pId'];
+         $ReadUpdate=mysqli_query($conn,"SELECT * FROM  professors WHERE id=''$pId");
+         if($ReadUpdate && mysqli_num_rows($ReadUpdate)>0){
+            foreach($ReadUpdate as $row){
+                ?>
+                
+                <?php
+            }
+         }
+    }
+
+}
+//  Read Update  teachers   end Here
 
 ?>

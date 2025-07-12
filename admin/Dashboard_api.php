@@ -122,6 +122,7 @@ function profileRead($conn){
     $profileRead=mysqli_query($conn, "SELECT * FROM manager");
     if($profileRead && mysqli_num_rows($profileRead)>0){
       $rowProfileread=mysqli_fetch_assoc($profileRead);
+     
     echo json_encode(['status' =>'success',
     'use_name' => $rowProfileread['username'],
     'use_email' => $rowProfileread['email'],
@@ -129,6 +130,8 @@ function profileRead($conn){
     'use_token' => $rowProfileread['user_token'],
     'userImage' => $rowProfileread['user_image'],
     'Registration Date' => $rowProfileread['create_date'],
+
+   
 
 
    

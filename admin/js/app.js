@@ -1,5 +1,68 @@
 $(document).ready(function () {
+    // delete Lojic
+$(document).on("click","#PDeleteBTN",function(e){
+    e.preventDefault();
+    
+    // alert("click");
+    let ProfessorId=$(this).attr('pId')
+    // console.log(ProfessorId);
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+   $.ajax({
+    type: "POST",
+    url: "apis/p_apis.php",
+    data: {"action":"DeleteF","pId":ProfessorId},
+    dataType: "json",
+    success: function (response) {
+        // console.log(response.message);
+          if(response.status == 'success'){
+            Swal.fire({
+            title: "Good job!",
+            text: response.message,
+            icon: "success"
+});
+read();
+          }
+          
+          else if(response.status == 'error'){
+            Swal.fire({
+            title: "I Am sorry!",
+            text: response.message,
+            icon: "erroe"
+});
+          }
+    }
+   });
+  }
+});
+})
 
+
+// Read Update Start
+$(document).on("click","#RUBTN",function(e){
+    e.preventDefault();
+    // alert("click");
+    let ProfessorId=$(this).attr("pId");
+    // console.log(ProfessorId);
+    $.ajax({
+        type: "POST",
+        url: "apis/p_apis.php",
+        data:{"action":"Read_update","pId":ProfessorId},
+        dataType: "html",
+        success: function (response) {
+            
+        }
+    });
+})
+// Read Update End
    // Read Logic Start Here
    readRequest();
 
@@ -235,4 +298,5 @@ $(document).on('submit','#teacherForm',function(e){
         }
     });
 })
+
 });

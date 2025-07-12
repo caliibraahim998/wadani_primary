@@ -80,7 +80,7 @@
                             <div class="profile-head">
                                 <div class="photo-content">
                                     <div class="cover-photo">
-                                        <button type="submit" style="margin-left:870px; padding:12px 40px; margin-top:100px;" class="btn btn-dark"><i class="fas fa-edit"></i>&nbsp; Edit</button>
+                                        <button  id="ProfileUpdateBtn" student_id="<?php  echo $row['id'];  ?>" type="submit" style="margin-left:870px; padding:12px 40px; margin-top:100px;" class="btn btn-dark"><i class="fas fa-edit"></i>&nbsp; Edit</button>
                                     </div>
                                     
                                 </div>
@@ -454,6 +454,20 @@
 
         
     </div>
+    <!-- Modal -->
+<div class="modal fade" style="margin-top: 100px;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!-- will be Automatically -->
+      </div>
+    </div>
+  </div>
+</div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
