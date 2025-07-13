@@ -77,24 +77,31 @@ function professors($conn){
 // Total Professors  end Here
 // LIst of  Professors  Start Here
 function listOfProfessors($conn){
-$read = mysqli_query($conn, "SELECT * FROM professors");
-if($read && mysqli_num_rows($read) > 0){
-    foreach($read as $row){
-        ?>
-          <div class="media mb-3 align-items-center border-bottom pb-3">
-          <img class="mr-3 rounded-circle" alt="image" width="50" src="<?php echo 'uploads/teacher/' . htmlspecialchars($row['t_image']); ?>">
-          <div class="media-body">
-           <h5 class="mb-0 text-pale-sky"><?php echo $row['first_name']; ?> <?php echo $row['last_name']; ?> <small class="text-muted">(<?php echo $row['department'] ; ?> )</small></h5>
-           <small class="text-primary mb-0"><?php echo $row['designation']; ?> </small>
-		   </div>
-		 </div>
-        <?php
+    $read = mysqli_query($conn, "SELECT * FROM professors");
+    if($read && mysqli_num_rows($read) > 0){
+        foreach($read as $row){
+            ?>
+            <div class="media mb-3 align-items-center border-bottom pb-3">
+                <img class="mr-3 rounded-circle border"
+                     alt="Professor Image"
+                     src="<?php echo 'uploads/teacher/' . htmlspecialchars($row['t_image']); ?>"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+                     
+                <div class="media-body">
+                    <h5 class="mb-0 text-pale-sky">
+                        <?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?>
+                        <small class="text-muted">(<?php echo htmlspecialchars($row['department']); ?>)</small>
+                    </h5>
+                    <small class="text-primary mb-0"><?php echo htmlspecialchars($row['designation']); ?></small>
+                </div>
+            </div>
+            <?php
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No professors found']);
     }
 }
-else{
-    echo json_encode(['status' => 'error', 'message' =>'not found in Professors']);
-}
-}
+
 // List of  Professors  end Here
 
 

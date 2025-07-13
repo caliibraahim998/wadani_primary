@@ -147,7 +147,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="form-label">Date of Birth</label>
-                                            <input type="text" name="datepicker" id="datepicker" class="datepicker-default form-control">
+                                            <input type="date" name="datepicker" id="datepicker" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">

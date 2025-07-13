@@ -29,31 +29,50 @@ function insert($conn)
         // Validation
         if (empty($f_name) || empty($l_name) || empty($email) || empty($class) || empty($Ssex) || empty($number) || empty($P_name) || empty($P_number) || empty($datepicker) || empty($B_group)) {
             echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
-        } else {
-            $read_old = mysqli_query($conn, "SELECT * FROM students WHERE student_email='$email'");
-            if ($read_old && mysqli_num_rows($read_old) > 0) {
-                echo json_encode(['status' => 'error', 'message' => 'This email is already taken']);
-            } else {
-                if (isset($_FILES['Simage'])) {
-                    $image_name = $_FILES['Simage']['name'];
-                    $temp_image_name = $_FILES['Simage']['tmp_name'];
-                    $folder = "../uploads/" . $image_name;
+            return;
+        }
 
-                    if (move_uploaded_file($temp_image_name, $folder)) {
-                        $insert = mysqli_query($conn, "INSERT INTO students (first_name, last_name, student_email, class, sex, mobile_number, parents_name, parents_number, date_of_birth, blood_group, student_image) VALUES ('$f_name', '$l_name', '$email', '$class', '$Ssex', '$number', '$P_name', '$P_number', '$datepicker', '$B_group', '$folder')");
-                        
-                        if ($insert) {
-                            echo json_encode(['status' => 'success', 'message' => 'Successfully inserted']);
-                        } else {
-                            echo json_encode(['status' => 'error', 'message' => 'Something went wrong while inserting']);
-                        }
-                    } else {
-                        echo json_encode(['status' => 'error', 'message' => 'Failed to move uploaded file']);
-                    }
-                } else {
-                    echo json_encode(['status' => 'error', 'message' => 'File upload failed or no file selected']);
-                }
+        // Check if email already exists
+        $read_old = mysqli_query($conn, "SELECT * FROM students WHERE student_email='$email'");
+        if ($read_old && mysqli_num_rows($read_old) > 0) {
+            echo json_encode(['status' => 'error', 'message' => 'This email is already taken']);
+            return;
+        }
+
+        // File validation
+        if (!isset($_FILES['Simage']) || $_FILES['Simage']['error'] !== 0) {
+            echo json_encode(['status' => 'error', 'message' => 'No file uploaded or upload error']);
+            return;
+        }
+
+        $image_name = $_FILES['Simage']['name'];
+        $temp_image_name = $_FILES['Simage']['tmp_name'];
+        $image_ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+        $allowed_extensions = ['jpg', 'jpeg', 'png'];
+
+        if (!in_array($image_ext, $allowed_extensions)) {
+            echo json_encode(['status' => 'error', 'message' => 'Only JPG, JPEG, and PNG files are allowed']);
+            return;
+        }
+
+        // Make unique filename
+        $new_name = uniqid('IMG_', true) . '.' . $image_ext;
+        $folder = "../uploads/" . $new_name;
+
+        if (move_uploaded_file($temp_image_name, $folder)) {
+            $insert = mysqli_query($conn, "INSERT INTO students (first_name, last_name, student_email, class, sex, mobile_number, parents_name, parents_number, date_of_birth, blood_group, student_image) VALUES ('$f_name', '$l_name', '$email', '$class', '$Ssex', '$number', '$P_name', '$P_number', '$datepicker', '$B_group', '$folder')");
+
+            if ($insert) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => '🎉 Student inserted successfully',
+                    'image' => $folder
+                ]);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Database insert failed']);
             }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to move uploaded file']);
         }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Invalid Insert Password']);
@@ -129,10 +148,14 @@ function view($conn)
 								<div class="card">
 									<div class="text-center p-3 overlay-box" style="background-image: url(images/big/img1.jpg);">
 										<div class="profile-photo">
-                                        <?php
-                                            $image = file_get_contents($rowView['student_image']) .'style=width: 100%; height: 100%;';
-                                            echo '<img src="data:image/jpeg;base64,' . base64_encode($image) . '"width="80px" height="40px"  class="img-fluid rounded-circle" alt="">';
-                                            ?>
+                                       <?php
+                                        $imageData = file_get_contents($rowView['student_image']);
+                                        $base64 = base64_encode($imageData);
+                                        ?>
+                                        <img src="data:image/jpeg;base64,<?php echo $base64; ?>"
+                                            alt="Student Image"
+                                            class="img-fluid rounded-circle"
+                                            style="width: 100px; height: 100px; object-fit: cover;">
 										</div>
 										<h3 class="mt-3 mb-1 text-white"><?php echo $rowView['first_name']  ?></h3>
 									</div>
